@@ -1,40 +1,31 @@
 -- phpMyAdmin SQL Dump
 -- version 4.6.4deb1
 -- https://www.phpmyadmin.net/
--- 
+--
 -- Client :  localhost:3306
 -- Généré le :  Dim 05 Février 2017 à 11:26
 -- Version du serveur :  5.7.17-0ubuntu0.16.10.1
 -- Version de PHP :  7.0.13-0ubuntu0.16.10.1
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
-
 --
 -- Base de données :  `vip`
 --
-
 -- --------------------------------------------------------
-
 --
 -- Structure de la table `acteur`
 --
-
 CREATE TABLE `acteur` (
   `VIP_NUMERO` int(11) NOT NULL,
   `ACTEUR_DATEDEBUT` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 --
 -- Contenu de la table `acteur`
 --
-
 INSERT INTO `acteur` (`VIP_NUMERO`, `ACTEUR_DATEDEBUT`) VALUES
 (1, '1992-07-16 00:00:00'),
 (2, '1989-04-23 00:00:00'),
@@ -62,95 +53,72 @@ INSERT INTO `acteur` (`VIP_NUMERO`, `ACTEUR_DATEDEBUT`) VALUES
 (26, '0000-00-00 00:00:00'),
 (34, '0000-00-00 00:00:00'),
 (39, NULL);
-
 -- --------------------------------------------------------
-
 --
 -- Structure de la table `agence`
 --
-
 CREATE TABLE `agence` (
   `AGENCE_NUMERO` int(11) NOT NULL,
   `AGENCE_NOM` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 --
 -- Contenu de la table `agence`
 --
-
 INSERT INTO `agence` (`AGENCE_NUMERO`, `AGENCE_NOM`) VALUES
 (1, 'Ellamarianne'),
 (2, 'Quellebella'),
 (3, 'Griffithia'),
 (4, 'City Models'),
 (5, 'MADISON MODEL');
-
 -- --------------------------------------------------------
-
 --
 -- Structure de la table `album`
 --
-
 CREATE TABLE `album` (
   `ALBUM_NUMERO` int(11) NOT NULL,
   `MAISONDISQUE_NUMERO` int(11) NOT NULL,
   `ALBUM_TITRE` varchar(20) DEFAULT NULL,
   `ALBUM_DATE` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 --
 -- Contenu de la table `album`
 --
-
 INSERT INTO `album` (`ALBUM_NUMERO`, `MAISONDISQUE_NUMERO`, `ALBUM_TITRE`, `ALBUM_DATE`) VALUES
 (1, 5, 'Quelqu\'un m\'a dit', '2002-01-17 00:00:00'),
 (2, 6, 'Alors Regarde', '2006-01-23 00:00:00'),
 (3, 6, 'Entre deux', '2006-01-23 00:00:00'),
 (4, 6, 'Au café des délices', '2000-01-24 00:00:00');
-
 -- --------------------------------------------------------
-
 --
 -- Structure de la table `apouragence`
 --
-
 CREATE TABLE `apouragence` (
   `AGENCE_NUMERO` int(11) NOT NULL,
   `VIP_NUMERO` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 --
 -- Contenu de la table `apouragence`
 --
-
 INSERT INTO `apouragence` (`AGENCE_NUMERO`, `VIP_NUMERO`) VALUES
 (5, 19),
 (4, 29);
-
 -- --------------------------------------------------------
-
 --
 -- Structure de la table `apoursujet`
 --
-
 CREATE TABLE `apoursujet` (
   `ARTICLE_NUMERO` int(11) NOT NULL,
   `VIP_NUMERO` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 --
 -- Contenu de la table `apoursujet`
 --
-
 INSERT INTO `apoursujet` (`ARTICLE_NUMERO`, `VIP_NUMERO`) VALUES
 (1, 34);
-
 -- --------------------------------------------------------
-
 --
 -- Structure de la table `article`
 --
-
 CREATE TABLE `article` (
   `ARTICLE_NUMERO` int(11) NOT NULL,
   `EXEMPLAIRE_NUMERO` int(11) DEFAULT NULL,
@@ -159,168 +127,126 @@ CREATE TABLE `article` (
   `ARTICLE_RESUME` varchar(800) DEFAULT NULL,
   `ARTICLE_DATE_INSERT` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 --
 -- Contenu de la table `article`
 --
-
 INSERT INTO `article` (`ARTICLE_NUMERO`, `EXEMPLAIRE_NUMERO`, `ARTICLE_TITRE`, `ARTICLE_NUMEROPAGEDEBUT`, `ARTICLE_RESUME`, `ARTICLE_DATE_INSERT`) VALUES
 (1, 1, 'A la sauce Tarantino!', 12, 'La jolie Mélanie Laurent, rendue célèbre par le film " Je vais bien ne t\'en fais pas" - pour lequel elle a remporté le César du meilleur espoir féminin - entre définitivement dans la cour des grandes. Après l\'évocation de plusieurs noms, parmi lesquels celui de Louise Bourgoin, c\'est finalement la petite blonde qui a en effet été choisie par le génial Quentin Tarantino ( Reservoir Dogs, Pulp Fiction, Kill Bill), pour rejoindre l\'équipe de son prochain long métrage Inglorious Bastards. Mélanie Laurent héritera du rôle féminin principal, et donnera ainsi la réplique à  Brad Pitt en personne, dans ce film dont l\'intrigue se situe en Europe pendant la seconde guerre mondiale.', '2010-01-13');
-
 -- --------------------------------------------------------
-
 --
 -- Structure de la table `chanteur`
 --
-
 CREATE TABLE `chanteur` (
   `VIP_NUMERO` int(11) NOT NULL,
   `CHANTEUR_SPECIALITE` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 --
 -- Contenu de la table `chanteur`
 --
-
 INSERT INTO `chanteur` (`VIP_NUMERO`, `CHANTEUR_SPECIALITE`) VALUES
 (12, 'Romantique'),
 (29, 'Sans voix');
-
 -- --------------------------------------------------------
-
 --
 -- Structure de la table `comporte`
 --
-
 CREATE TABLE `comporte` (
   `ARTICLE_NUMERO` int(11) NOT NULL,
   `PHOTO_NUMERO` int(11) NOT NULL,
   `VIP_NUMERO` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 --
 -- Contenu de la table `comporte`
 --
-
 INSERT INTO `comporte` (`ARTICLE_NUMERO`, `PHOTO_NUMERO`, `VIP_NUMERO`) VALUES
 (1, 1, 34);
-
 -- --------------------------------------------------------
-
 --
 -- Structure de la table `composer`
 --
-
 CREATE TABLE `composer` (
   `ALBUM_NUMERO` int(11) NOT NULL,
   `VIP_NUMERO` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 --
 -- Contenu de la table `composer`
 --
-
 INSERT INTO `composer` (`ALBUM_NUMERO`, `VIP_NUMERO`) VALUES
 (2, 12),
 (3, 12),
 (4, 12),
 (1, 29);
-
 -- --------------------------------------------------------
-
 --
 -- Structure de la table `couturier`
 --
-
 CREATE TABLE `couturier` (
   `VIP_NUMERO` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 --
 -- Contenu de la table `couturier`
 --
-
 INSERT INTO `couturier` (`VIP_NUMERO`) VALUES
 (35);
-
 -- --------------------------------------------------------
-
 --
 -- Structure de la table `defile`
 --
-
 CREATE TABLE `defile` (
   `DEFILE_NUMERO` int(11) NOT NULL,
   `VIP_NUMERO` int(11) NOT NULL,
   `DEFILE_LIEU` varchar(20) DEFAULT NULL,
   `DEFILE_DATE` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 --
 -- Contenu de la table `defile`
 --
-
 INSERT INTO `defile` (`DEFILE_NUMERO`, `VIP_NUMERO`, `DEFILE_LIEU`, `DEFILE_DATE`) VALUES
 (1, 35, 'PARIS', '2000-01-20 00:00:00');
-
 -- --------------------------------------------------------
-
 --
 -- Structure de la table `defiledans`
 --
-
 CREATE TABLE `defiledans` (
   `DEFILE_NUMERO` int(11) NOT NULL,
   `VIP_NUMERO` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 --
 -- Contenu de la table `defiledans`
 --
-
 INSERT INTO `defiledans` (`DEFILE_NUMERO`, `VIP_NUMERO`) VALUES
 (1, 19),
 (1, 29);
-
 -- --------------------------------------------------------
-
 --
 -- Structure de la table `exemplaire`
 --
-
 CREATE TABLE `exemplaire` (
   `EXEMPLAIRE_NUMERO` int(11) NOT NULL,
   `EXEMPLAIRE_DATEPUBLICATION` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 --
 -- Contenu de la table `exemplaire`
 --
-
 INSERT INTO `exemplaire` (`EXEMPLAIRE_NUMERO`, `EXEMPLAIRE_DATEPUBLICATION`) VALUES
 (1, '2001-01-05 00:00:00'),
 (2, '2000-02-06 00:00:00'),
 (3, '1999-03-05 00:00:00'),
 (4, '1999-04-05 00:00:00'),
 (5, '1990-05-04 00:00:00');
-
 -- --------------------------------------------------------
-
 --
 -- Structure de la table `film`
 --
-
 CREATE TABLE `film` (
   `FILM_NUMERO` int(11) NOT NULL,
   `VIP_NUMERO` int(11) DEFAULT NULL,
   `FILM_TITRE` varchar(80) DEFAULT NULL,
   `FILM_DATEREALISATION` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 --
 -- Contenu de la table `film`
 --
-
 INSERT INTO `film` (`FILM_NUMERO`, `VIP_NUMERO`, `FILM_TITRE`, `FILM_DATEREALISATION`) VALUES
 (1, NULL, 'Babel', '2006-05-01 00:00:00'),
 (2, NULL, 'Chad Schmidt', '2006-07-01 00:00:00'),
@@ -333,23 +259,18 @@ INSERT INTO `film` (`FILM_NUMERO`, `VIP_NUMERO`, `FILM_TITRE`, `FILM_DATEREALISA
 (9, 30, 'Les Ames fortes', '2001-01-20 00:00:00'),
 (10, 31, 'Rue des plaisirs', '2002-02-13 00:00:00'),
 (11, 33, 'Le Coup de sirocco', '1979-04-18 00:00:00');
-
 -- --------------------------------------------------------
-
 --
 -- Structure de la table `joue`
 --
-
 CREATE TABLE `joue` (
   `FILM_NUMERO` int(11) NOT NULL,
   `VIP_NUMERO` int(11) NOT NULL,
   `ROLE_NOM` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 --
 -- Contenu de la table `joue`
 --
-
 INSERT INTO `joue` (`FILM_NUMERO`, `VIP_NUMERO`, `ROLE_NOM`) VALUES
 (1, 24, NULL),
 (2, 24, NULL),
@@ -364,24 +285,19 @@ INSERT INTO `joue` (`FILM_NUMERO`, `VIP_NUMERO`, `ROLE_NOM`) VALUES
 (9, 19, 'rôle principal'),
 (10, 19, 'Marion, une prostituée'),
 (11, 12, 'Le plus beau');
-
 -- --------------------------------------------------------
-
 --
 -- Structure de la table `liaison`
 --
-
 CREATE TABLE `liaison` (
   `VIP_NUMERO` int(11) NOT NULL,
   `VIP_VIP_NUMERO` int(11) NOT NULL,
   `DATE_EVENEMENT` datetime NOT NULL,
   `LIAISON_MOTIFFIN` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 --
 -- Contenu de la table `liaison`
 --
-
 INSERT INTO `liaison` (`VIP_NUMERO`, `VIP_VIP_NUMERO`, `DATE_EVENEMENT`, `LIAISON_MOTIFFIN`) VALUES
 (19, 34, '2002-01-04 00:00:00', 'Tromperie'),
 (24, 26, '2006-02-01 00:00:00', 'aucune raison'),
@@ -389,22 +305,17 @@ INSERT INTO `liaison` (`VIP_NUMERO`, `VIP_VIP_NUMERO`, `DATE_EVENEMENT`, `LIAISO
 (26, 27, '2006-02-01 00:00:00', 'Trop beau'),
 (26, 27, '2009-12-29 00:00:00', 'A trouvé mieux'),
 (34, 11, '2010-01-03 00:00:00', 'Ne se suportaient plus');
-
 -- --------------------------------------------------------
-
 --
 -- Structure de la table `maisondisque`
 --
-
 CREATE TABLE `maisondisque` (
   `MAISONDISQUE_NUMERO` int(11) NOT NULL,
   `MAISONDISQUE_NOM` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 --
 -- Contenu de la table `maisondisque`
 --
-
 INSERT INTO `maisondisque` (`MAISONDISQUE_NUMERO`, `MAISONDISQUE_NOM`) VALUES
 (1, 'Pomme Music'),
 (2, 'Sony France'),
@@ -412,32 +323,24 @@ INSERT INTO `maisondisque` (`MAISONDISQUE_NUMERO`, `MAISONDISQUE_NOM`) VALUES
 (4, 'Sony France'),
 (5, 'Naïve'),
 (6, 'Bmg France');
-
 -- --------------------------------------------------------
-
 --
 -- Structure de la table `mannequin`
 --
-
 CREATE TABLE `mannequin` (
   `VIP_NUMERO` int(11) NOT NULL,
   `MANNEQUIN_TAILLE` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 --
 -- Contenu de la table `mannequin`
 --
-
 INSERT INTO `mannequin` (`VIP_NUMERO`, `MANNEQUIN_TAILLE`) VALUES
 (19, 80),
 (29, 2);
-
 -- --------------------------------------------------------
-
 --
 -- Structure de la table `mariage`
 --
-
 CREATE TABLE `mariage` (
   `VIP_NUMERO` int(11) NOT NULL,
   `VIP_VIP_NUMERO` int(11) NOT NULL,
@@ -446,18 +349,15 @@ CREATE TABLE `mariage` (
   `MARIAGE_FIN` datetime DEFAULT NULL,
   `MARIAGE_MOTIFFIN` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 --
 -- Contenu de la table `mariage`
 --
-
 INSERT INTO `mariage` (`VIP_NUMERO`, `VIP_VIP_NUMERO`, `DATE_EVENEMENT`, `MARIAGE_LIEU`, `MARIAGE_FIN`, `MARIAGE_MOTIFFIN`) VALUES
 (1, 2, '2008-12-30 00:00:00', 'Brive La Gaillarde', '2016-11-11 00:00:00', 'Non admis en LP DWBD'),
 (3, 34, '2010-01-01 00:00:00', 'IUT du LIMOUSIN', '2010-01-02 00:00:00', 'Toujours ivre'),
 (19, 36, '2001-01-27 00:00:00', 'Paris', '2005-01-27 00:00:00', 'Séparation'),
 (24, 25, '2001-01-02 00:00:00', 'Las Vegas', '2002-01-02 00:00:00', 'Trop beau'),
 (24, 25, '2009-12-01 00:00:00', 'Las Vegas', '2009-12-23 00:00:00', 'Trop beau');
-
 --
 -- Déclencheurs `mariage`
 --
@@ -472,22 +372,17 @@ CREATE TRIGGER `verifvip` BEFORE INSERT ON `mariage` FOR EACH ROW begin
       end
 $$
 DELIMITER ;
-
 -- --------------------------------------------------------
-
 --
 -- Structure de la table `nationalite`
 --
-
 CREATE TABLE `nationalite` (
   `NATIONALITE_NUMERO` int(11) NOT NULL,
   `NATIONALITE_NOM` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 --
 -- Contenu de la table `nationalite`
 --
-
 INSERT INTO `nationalite` (`NATIONALITE_NUMERO`, `NATIONALITE_NOM`) VALUES
 (1, 'Américaine'),
 (2, 'Française'),
@@ -497,31 +392,23 @@ INSERT INTO `nationalite` (`NATIONALITE_NUMERO`, `NATIONALITE_NOM`) VALUES
 (6, 'Irlandaise'),
 (7, 'Chilienne'),
 (8, 'Sud Africaine');
-
 -- --------------------------------------------------------
-
 --
 -- Structure de la table `parametres`
 --
-
 CREATE TABLE `parametres` (
   `LOGIN` varchar(20) NOT NULL,
   `PASSWD` varchar(100) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
 --
 -- Contenu de la table `parametres`
 --
-
 INSERT INTO `parametres` (`LOGIN`, `PASSWD`) VALUES
 ('admin', '850e2ed4864a5cd7b851ace618f5fb47efc7f5031b9cdb160f32da1229dc32bc');
-
 -- --------------------------------------------------------
-
 --
 -- Structure de la table `photo`
 --
-
 CREATE TABLE `photo` (
   `PHOTO_NUMERO` int(11) NOT NULL,
   `VIP_NUMERO` int(11) NOT NULL DEFAULT '0',
@@ -529,11 +416,9 @@ CREATE TABLE `photo` (
   `PHOTO_COMMENTAIRE` varchar(250) DEFAULT NULL,
   `PHOTO_ADRESSE` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 --
 -- Contenu de la table `photo`
 --
-
 INSERT INTO `photo` (`PHOTO_NUMERO`, `VIP_NUMERO`, `PHOTO_SUJET`, `PHOTO_COMMENTAIRE`, `PHOTO_ADRESSE`) VALUES
 (1, 1, '30/01/10', 'Cinevile Studios', 'smith.jpg'),
 (1, 2, '14/03/10', 'Tournage de Cannes 9', 'caunes.jpg'),
@@ -581,21 +466,16 @@ INSERT INTO `photo` (`PHOTO_NUMERO`, `VIP_NUMERO`, `PHOTO_SUJET`, `PHOTO_COMMENT
 (4, 19, 'Caricature', 'Son plus beau sourire', 'casta4.jpg'),
 (5, 19, 'A l\'IUT du LIMOUSIN', 'Elle découvre l\'emploi du temps de la semaine 20', 'casta5.jpg'),
 (6, 19, 'A l\'IUT du LIMOUSIN', 'Juste avant de partir en stage de seconde année', 'casta6.jpg');
-
 -- --------------------------------------------------------
-
 --
 -- Structure de la table `realisateur`
 --
-
 CREATE TABLE `realisateur` (
   `VIP_NUMERO` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 --
 -- Contenu de la table `realisateur`
 --
-
 INSERT INTO `realisateur` (`VIP_NUMERO`) VALUES
 (3),
 (10),
@@ -605,13 +485,10 @@ INSERT INTO `realisateur` (`VIP_NUMERO`) VALUES
 (31),
 (33),
 (34);
-
 -- --------------------------------------------------------
-
 --
 -- Structure de la table `vip`
 --
-
 CREATE TABLE `vip` (
   `VIP_NUMERO` int(11) NOT NULL,
   `NATIONALITE_NUMERO` int(11) NOT NULL,
@@ -622,11 +499,9 @@ CREATE TABLE `vip` (
   `VIP_TEXTE` varchar(2500) DEFAULT NULL,
   `VIP_DATE_INSERTION` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 --
 -- Contenu de la table `vip`
 --
-
 INSERT INTO `vip` (`VIP_NUMERO`, `NATIONALITE_NUMERO`, `VIP_NOM`, `VIP_PRENOM`, `VIP_SEXE`, `VIP_NAISSANCE`, `VIP_TEXTE`, `VIP_DATE_INSERTION`) VALUES
 (1, 1, 'SMITH', 'Will', 'M', '1968-09-25 00:00:00', 'Will Smith se destine à  une carrière musicale lorsque, en 1989, il fait la rencontre de Benny Medina, productrice exécutive pour la Warner, qui lui confie le rôle principal de la série télévisée Le Prince de Bel-Air. Un feuilleton qui le rend extrêmement populaire et qui lui permet de débuter une carrière cinématographique. En 1992, il joue dans la comédie Made in America puis se distingue dans le drame Six degrés de séparation.', '2009-12-29 14:30:54'),
 (2, 2, 'DE CAUNES', 'Antoine', 'M', '1953-09-14 00:00:00', 'Fils de Georges de Caunes et de Jaqueline Jouber, père de l\'actrice Emma de Caunes. ', '2009-12-29 14:30:54'),
@@ -665,57 +540,48 @@ INSERT INTO `vip` (`VIP_NUMERO`, `NATIONALITE_NUMERO`, `VIP_NOM`, `VIP_PRENOM`, 
 (35, 2, 'Saint Laurent', 'Yves', 'M', '1936-01-20 00:00:00', 'Après une jeunesse passée en Algérie, Yves Saint Laurent vient suivre à Paris des cours de dessins à la Chambre Syndicale de la haute/Couture. En 1955, Christian Dior le remarque et l\'emploie comme assistant modéliste. Il lui succédera deux ans plus tard et connaîtra son premier grand succès avec sa fameuse robe trapèze. Malgré cela, il sera remplacé à la tête de la maison Dior en 1961. Ce qui le poussera à fonder sa propre ligne de haute couture. Sa première collection en 1962 est un véritable succès, que ne démentiront pas les décennies suivantes : Yves Saint Laurent lancant la mode du caban, du smocking féminin, des sahariennes. En 1966, il ouvre son magasin Saint Laurent Rive Gauche, spécialisé dans le prêt à porter féminin, et trois ans plus tard il s\'ouvre aux collections masculines. Yves Saint Laurent réalisera également de nombreux costumes et décors pour le théatre et le cinéma (\'Arabesque\', \'Belle de jour\'). A partir de 1983, plusieurs musées lui consacreront des rétrospectives. Il est nommé en 2001 commandeur de la Légion d\'honneur, et fait ses adieux à la haute couture le 7 janvier 2002.', '2008-01-05 00:00:00'),
 (36, 2, 'Sednaoui', 'Stéphane', 'M', '1959-05-14 00:00:00', 'Il habite New York depuis le début des années 1990. Ex petit ami de Bjork, il a une fille avec Laetitia Casta. Il faut voir comment les plus grandes rock stars de la planète parlent de Stéphane Sednaoui, réalisateur de plusieurs des clips les plus percutants de la décennie 90: Mysterious Ways de U2, Give It Away des Red Hot Chili Peppers, Big Time Sensuality de Bjork. Il faut voir Bono s\'incliner devant le charme dévastateur du vidéaste, raconter en entrevue à quel point, sur le plateau de tournage, le plus cool, celui qui fait fondre les demoiselles, c\'est toujours Sednaoui, charismatique beauté male grevé d\'un accent francais plus gros que le bras.', '2008-01-05 00:00:00'),
 (39, 8, 'THERON', 'Charlize', 'F', '1975-08-07 00:00:00', 'Son adolescence a été endeuillée par la mort de son père, tué sous ses yeux par sa mère, en état de légitime défense, alors qu\'il était sous l\'emprise de l\'alcool.\r\n\r\nCe qui n\'empêcha nullement la jeune fille de tout mettre en œuvre, activement soutenue par sa mère, pour parvenir à un certain accomplissement, d\'abord via des cours de danse et un travail de mannequin, puis par des cours de théâtre.\r\n\r\nLa consécration est venue avec l\'Oscar de la meilleure actrice en 2003, récompense décernée le 29 février 2004, pour son rôle de la tueuse en série Aileen Wuornos dans Monster de Patty Jenkins.\r\n\r\nCe rôle, pour lequel l\'actrice n\'a pas hésité à prendre quinze kilogrammes et supporter de longues heures durant le port d\'un dentier et de lentilles de contact pour masquer son regard couleur d\'azur, a été apprécié outre-Atlantique.\r\n\r\nCharlize Theron est partie séjourner dans son pays natal aussitôt après l\'obtention de cette récompense, et y a été accueillie comme une héroïne nationale, d\'autant plus facilement qu\'aucun Sud-Africain n\'avait jamais été distingué, depuis 75 ans, par un Oscar. L\'effet de l\'obtention de cet oscar fut si retentissant,que Charlize Theron fut recu par l\'ancien président sud africain Nelson Mandela et par l\'actuel président Thabo Mbeki. De plus, beaucoup de nombreux parents en Afrique du Sud ont prénonmé leurs filles Charlize,suite à la consécration de leur compatriote.', '2008-01-05 00:00:00');
-
 --
 -- Index pour les tables exportées
 --
-
 --
 -- Index pour la table `acteur`
 --
 ALTER TABLE `acteur`
   ADD PRIMARY KEY (`VIP_NUMERO`);
-
 --
 -- Index pour la table `agence`
 --
 ALTER TABLE `agence`
   ADD PRIMARY KEY (`AGENCE_NUMERO`);
-
 --
 -- Index pour la table `album`
 --
 ALTER TABLE `album`
   ADD PRIMARY KEY (`ALBUM_NUMERO`),
   ADD KEY `CIF1_FK` (`MAISONDISQUE_NUMERO`);
-
 --
 -- Index pour la table `apouragence`
 --
 ALTER TABLE `apouragence`
   ADD PRIMARY KEY (`AGENCE_NUMERO`,`VIP_NUMERO`),
   ADD KEY `LIEN_136_FK` (`VIP_NUMERO`);
-
 --
 -- Index pour la table `apoursujet`
 --
 ALTER TABLE `apoursujet`
   ADD PRIMARY KEY (`ARTICLE_NUMERO`,`VIP_NUMERO`),
   ADD KEY `LIEN_153_FK` (`VIP_NUMERO`);
-
 --
 -- Index pour la table `article`
 --
 ALTER TABLE `article`
   ADD PRIMARY KEY (`ARTICLE_NUMERO`),
   ADD KEY `CIF2_FK` (`EXEMPLAIRE_NUMERO`);
-
 --
 -- Index pour la table `chanteur`
 --
 ALTER TABLE `chanteur`
   ADD PRIMARY KEY (`VIP_NUMERO`);
-
 --
 -- Index pour la table `comporte`
 --
@@ -723,110 +589,93 @@ ALTER TABLE `comporte`
   ADD PRIMARY KEY (`ARTICLE_NUMERO`,`PHOTO_NUMERO`,`VIP_NUMERO`),
   ADD KEY `LIEN_141_FK` (`PHOTO_NUMERO`),
   ADD KEY `VIP_NUMERO` (`VIP_NUMERO`);
-
 --
 -- Index pour la table `composer`
 --
 ALTER TABLE `composer`
   ADD PRIMARY KEY (`ALBUM_NUMERO`,`VIP_NUMERO`),
   ADD KEY `LIEN_185_FK` (`VIP_NUMERO`);
-
 --
 -- Index pour la table `couturier`
 --
 ALTER TABLE `couturier`
   ADD PRIMARY KEY (`VIP_NUMERO`);
-
 --
 -- Index pour la table `defile`
 --
 ALTER TABLE `defile`
   ADD PRIMARY KEY (`DEFILE_NUMERO`),
   ADD KEY `CIF4_FK` (`VIP_NUMERO`);
-
 --
 -- Index pour la table `defiledans`
 --
 ALTER TABLE `defiledans`
   ADD PRIMARY KEY (`DEFILE_NUMERO`,`VIP_NUMERO`),
   ADD KEY `LIEN_137_FK` (`VIP_NUMERO`);
-
 --
 -- Index pour la table `exemplaire`
 --
 ALTER TABLE `exemplaire`
   ADD PRIMARY KEY (`EXEMPLAIRE_NUMERO`);
-
 --
 -- Index pour la table `film`
 --
 ALTER TABLE `film`
   ADD PRIMARY KEY (`FILM_NUMERO`),
   ADD KEY `CIF3_FK` (`VIP_NUMERO`);
-
 --
 -- Index pour la table `joue`
 --
 ALTER TABLE `joue`
   ADD PRIMARY KEY (`FILM_NUMERO`,`VIP_NUMERO`),
   ADD KEY `LIEN_330_FK` (`VIP_NUMERO`);
-
 --
 -- Index pour la table `liaison`
 --
 ALTER TABLE `liaison`
   ADD PRIMARY KEY (`VIP_NUMERO`,`VIP_VIP_NUMERO`,`DATE_EVENEMENT`),
   ADD KEY `LIEN_195_FK` (`VIP_VIP_NUMERO`);
-
 --
 -- Index pour la table `maisondisque`
 --
 ALTER TABLE `maisondisque`
   ADD PRIMARY KEY (`MAISONDISQUE_NUMERO`);
-
 --
 -- Index pour la table `mannequin`
 --
 ALTER TABLE `mannequin`
   ADD PRIMARY KEY (`VIP_NUMERO`);
-
 --
 -- Index pour la table `mariage`
 --
 ALTER TABLE `mariage`
   ADD PRIMARY KEY (`VIP_NUMERO`,`VIP_VIP_NUMERO`,`DATE_EVENEMENT`),
   ADD KEY `LIEN_191_FK` (`VIP_VIP_NUMERO`);
-
 --
 -- Index pour la table `nationalite`
 --
 ALTER TABLE `nationalite`
   ADD PRIMARY KEY (`NATIONALITE_NUMERO`);
-
 --
 -- Index pour la table `photo`
 --
 ALTER TABLE `photo`
   ADD PRIMARY KEY (`PHOTO_NUMERO`,`VIP_NUMERO`),
   ADD KEY `POSSEDE_FK` (`VIP_NUMERO`);
-
 --
 -- Index pour la table `realisateur`
 --
 ALTER TABLE `realisateur`
   ADD PRIMARY KEY (`VIP_NUMERO`);
-
 --
 -- Index pour la table `vip`
 --
 ALTER TABLE `vip`
   ADD PRIMARY KEY (`VIP_NUMERO`),
   ADD KEY `A1_FK` (`NATIONALITE_NUMERO`);
-
 --
 -- AUTO_INCREMENT pour les tables exportées
 --
-
 --
 -- AUTO_INCREMENT pour la table `article`
 --
@@ -840,45 +689,38 @@ ALTER TABLE `vip`
 --
 -- Contraintes pour les tables exportées
 --
-
 --
 -- Contraintes pour la table `acteur`
 --
 ALTER TABLE `acteur`
   ADD CONSTRAINT `FK_ACTEUR_EST4_VIP` FOREIGN KEY (`VIP_NUMERO`) REFERENCES `vip` (`VIP_NUMERO`);
-
 --
 -- Contraintes pour la table `album`
 --
 ALTER TABLE `album`
   ADD CONSTRAINT `FK_ALBUM_CIF1_MAISONDI` FOREIGN KEY (`MAISONDISQUE_NUMERO`) REFERENCES `maisondisque` (`MAISONDISQUE_NUMERO`);
-
 --
 -- Contraintes pour la table `apouragence`
 --
 ALTER TABLE `apouragence`
   ADD CONSTRAINT `FK_APOURAGE_LIEN_125_AGENCE` FOREIGN KEY (`AGENCE_NUMERO`) REFERENCES `agence` (`AGENCE_NUMERO`),
   ADD CONSTRAINT `FK_APOURAGE_LIEN_136_MANNEQUI` FOREIGN KEY (`VIP_NUMERO`) REFERENCES `mannequin` (`VIP_NUMERO`);
-
 --
 -- Contraintes pour la table `apoursujet`
 --
 ALTER TABLE `apoursujet`
   ADD CONSTRAINT `FK_APOURSUJ_LIEN_126_ARTICLE` FOREIGN KEY (`ARTICLE_NUMERO`) REFERENCES `article` (`ARTICLE_NUMERO`),
   ADD CONSTRAINT `FK_APOURSUJ_LIEN_153_VIP` FOREIGN KEY (`VIP_NUMERO`) REFERENCES `vip` (`VIP_NUMERO`);
-
 --
 -- Contraintes pour la table `article`
 --
 ALTER TABLE `article`
   ADD CONSTRAINT `FK_ARTICLE_CIF2_EXEMPLAI` FOREIGN KEY (`EXEMPLAIRE_NUMERO`) REFERENCES `exemplaire` (`EXEMPLAIRE_NUMERO`);
-
 --
 -- Contraintes pour la table `chanteur`
 --
 ALTER TABLE `chanteur`
   ADD CONSTRAINT `FK_CHANTEUR_EST2_VIP` FOREIGN KEY (`VIP_NUMERO`) REFERENCES `vip` (`VIP_NUMERO`);
-
 --
 -- Contraintes pour la table `comporte`
 --
@@ -886,84 +728,71 @@ ALTER TABLE `comporte`
   ADD CONSTRAINT `FK_COMPORTE_LIEN_127_ARTICLE` FOREIGN KEY (`ARTICLE_NUMERO`) REFERENCES `article` (`ARTICLE_NUMERO`),
   ADD CONSTRAINT `FK_COMPORTE_LIEN_141_PHOTO` FOREIGN KEY (`PHOTO_NUMERO`) REFERENCES `photo` (`PHOTO_NUMERO`),
   ADD CONSTRAINT `comporte_ibfk_1` FOREIGN KEY (`VIP_NUMERO`) REFERENCES `vip` (`VIP_NUMERO`);
-
 --
 -- Contraintes pour la table `composer`
 --
 ALTER TABLE `composer`
   ADD CONSTRAINT `FK_COMPOSER_LIEN_151_ALBUM` FOREIGN KEY (`ALBUM_NUMERO`) REFERENCES `album` (`ALBUM_NUMERO`),
   ADD CONSTRAINT `FK_COMPOSER_LIEN_185_CHANTEUR` FOREIGN KEY (`VIP_NUMERO`) REFERENCES `chanteur` (`VIP_NUMERO`);
-
 --
 -- Contraintes pour la table `couturier`
 --
 ALTER TABLE `couturier`
   ADD CONSTRAINT `FK_COUTURIE_EST3_VIP` FOREIGN KEY (`VIP_NUMERO`) REFERENCES `vip` (`VIP_NUMERO`);
-
 --
 -- Contraintes pour la table `defile`
 --
 ALTER TABLE `defile`
   ADD CONSTRAINT `FK_DEFILE_CIF4_COUTURIE` FOREIGN KEY (`VIP_NUMERO`) REFERENCES `couturier` (`VIP_NUMERO`);
-
 --
 -- Contraintes pour la table `defiledans`
 --
 ALTER TABLE `defiledans`
   ADD CONSTRAINT `FK_DEFILEDA_LIEN_128_DEFILE` FOREIGN KEY (`DEFILE_NUMERO`) REFERENCES `defile` (`DEFILE_NUMERO`),
   ADD CONSTRAINT `FK_DEFILEDA_LIEN_137_MANNEQUI` FOREIGN KEY (`VIP_NUMERO`) REFERENCES `mannequin` (`VIP_NUMERO`);
-
 --
 -- Contraintes pour la table `film`
 --
 ALTER TABLE `film`
   ADD CONSTRAINT `FK_FILM_CIF3_REALISAT` FOREIGN KEY (`VIP_NUMERO`) REFERENCES `realisateur` (`VIP_NUMERO`);
-
 --
 -- Contraintes pour la table `joue`
 --
 ALTER TABLE `joue`
   ADD CONSTRAINT `FK_JOUE_LIEN_132_FILM` FOREIGN KEY (`FILM_NUMERO`) REFERENCES `film` (`FILM_NUMERO`),
   ADD CONSTRAINT `FK_JOUE_LIEN_330_ACTEUR` FOREIGN KEY (`VIP_NUMERO`) REFERENCES `acteur` (`VIP_NUMERO`);
-
 --
 -- Contraintes pour la table `liaison`
 --
 ALTER TABLE `liaison`
   ADD CONSTRAINT `FK_LIAISON_LIEN_194_VIP` FOREIGN KEY (`VIP_NUMERO`) REFERENCES `vip` (`VIP_NUMERO`),
   ADD CONSTRAINT `FK_LIAISON_LIEN_195_VIP` FOREIGN KEY (`VIP_VIP_NUMERO`) REFERENCES `vip` (`VIP_NUMERO`);
-
 --
 -- Contraintes pour la table `mannequin`
 --
 ALTER TABLE `mannequin`
   ADD CONSTRAINT `FK_MANNEQUI_EST1_VIP` FOREIGN KEY (`VIP_NUMERO`) REFERENCES `vip` (`VIP_NUMERO`);
-
 --
 -- Contraintes pour la table `mariage`
 --
 ALTER TABLE `mariage`
   ADD CONSTRAINT `FK_MARIAGE_LIEN_190_VIP` FOREIGN KEY (`VIP_NUMERO`) REFERENCES `vip` (`VIP_NUMERO`),
   ADD CONSTRAINT `FK_MARIAGE_LIEN_191_VIP` FOREIGN KEY (`VIP_VIP_NUMERO`) REFERENCES `vip` (`VIP_NUMERO`);
-
 --
 -- Contraintes pour la table `photo`
 --
 ALTER TABLE `photo`
   ADD CONSTRAINT `FK_PHOTO_POSSEDE_VIP` FOREIGN KEY (`VIP_NUMERO`) REFERENCES `vip` (`VIP_NUMERO`);
-
 --
 -- Contraintes pour la table `realisateur`
 --
 ALTER TABLE `realisateur`
   ADD CONSTRAINT `FK_REALISAT_EST5_VIP` FOREIGN KEY (`VIP_NUMERO`) REFERENCES `vip` (`VIP_NUMERO`);
-
 --
 -- Contraintes pour la table `vip`
 --
 ALTER TABLE `vip`
   ADD CONSTRAINT `FK_VIP_A1_NATIONAL` FOREIGN KEY (`NATIONALITE_NUMERO`) REFERENCES `nationalite` (`NATIONALITE_NUMERO`);
-
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
