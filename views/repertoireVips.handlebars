@@ -1,12 +1,7 @@
 <h1>Répertoire des VIPs</h1>
-{{#if letters}}
-  <p>Cliquez sur une lettre :
-  {{#each letters}}
-    <a href="/repertoire/{{this.letters}}">{{this.letters}}</a>
-  {{/each}}
-  </p>
-{{/if}}
-
-{{#each vip}}
-  <a href="/repertoire/detailsVip/{{this.vip_numero}}"><img src="/images/vip/{{this.photo_adresse}}"><p>{{this.vip_nom}}</p></a>
+{{> selectLettres}}
+<table><tr>
+{{#each vips}}
+  <td><a href="/repertoire/detailsVip/{{this.vip_numero}}"><img class="personne" src="/images/vip/{{this.photo_adresse}}"><p>{{this.vip_nom}}</p></a></td>
 {{/each}}
+</tr></table>

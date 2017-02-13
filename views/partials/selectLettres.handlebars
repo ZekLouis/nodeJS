@@ -1,0 +1,7 @@
+{{#if letters}}
+  <p>Cliquez sur une lettre :
+  {{#each letters}}
+    <a href="/repertoire/{{this.letters}}">{{this.letters}}</a>
+  {{/each}}
+  </p>
+{{/if}}

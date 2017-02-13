@@ -1,2 +1,36 @@
-<p>{{vip.vip_nom}}</p>
-<p>{{vip.vip_prenom}}</p>
+<h2>Détails d'un VIP</h2>
+{{> selectLettres}}
+{{#if vip}}
+  <img src="/images/vip/{{vip.photo_adresse}}">
+  <p><b>Nom : </b>{{vip.vip_nom}} {{vip.vip_prenom}}</p>
+  <p><b>Date de naissance : </b>{{formatDate vip.vip_naissance 'DD MMMM YYYY' }}</p>
+  <p><b>Nationalité : </b> {{vip.nationalite_nom}}</p>
+  <p><b>Qui suis-je ? : </b>{{vip.vip_texte}}</p>
+  {{#if acteur}}
+    acteur
+  {{/if}}
+  {{#if chanteur}}
+    chanteur
+  {{/if}}
+  {{#if mannequin}}
+    mannequin
+  {{/if}}
+  {{#if realisateur}}
+    realisateur
+  {{/if}}
+  {{#if couturier}}
+    couturier
+  {{/if}}
+  {{#each mariages}}
+    <p><b>Mariage(s) : </b><a href="/repertoire/detailsVip/{{this.vip_numero}}">{{this.vip_prenom}} {{this.vip_nom}}</a> ({{formatDate this.date_evenement 'MMMM YYYY' }} => {{formatDate this.mariage_fin 'MMMM YYYY' }}) <b>Lieu : </b> {{this.mariage_lieu}}</p>
+  {{/each}}
+  {{#each liaisons}}
+    <p><b>Liaisons(s) : </b><a href="/repertoire/detailsVip/{{this.vip_numero}}">{{this.vip_prenom}} {{this.vip_nom}}</a> ({{formatDate this.date_evenement 'MMMM YYYY' }}) <b>Raison de fin de liaison : </b>{{this.liaison_motiffin}}</p>
+  {{/each}}
+  {{#each photos}}
+    <img class="personne" src="/images/vip/{{this.photo_adresse}}">
+  {{/each}}
+
+{{else}}
+  <p>Pas de VIP</p>
+{{/if}}
