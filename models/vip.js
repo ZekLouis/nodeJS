@@ -134,3 +134,23 @@ module.exports.getRealisateur = function(idVip,callback){
         }
     })
 }
+
+module.exports.getAllVips = function(callback) {
+    db.getConnection(function(err, connexion) {
+        if (!err) {
+            var sql = "SELECT vip_numero,vip_nom,vip_prenom FROM vip ;";
+            connexion.query(sql, callback);
+            connexion.release();
+        }
+    });
+};
+
+module.exports.getArticleVip = function(idVip,callback){
+    db.getConnection(function(err, connexion){
+        if(!err){
+            var sql = "SELECT v.vip_nom,v.vip_prenom,v.vip_numero,a.article_date_insert,a.article_resume,a.article_titre from vip v inner join apoursujet aps on v.vip_numero = aps.vip_numero inner join article a on a.article_numero=aps.article_numero where v.vip_numero="+idVip+";";
+            connexion.query(sql, callback);
+            connexion.release();
+        }
+    })
+};

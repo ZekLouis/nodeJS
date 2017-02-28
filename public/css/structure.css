@@ -107,10 +107,24 @@ a.popup span img{
 }
 
 a.popup span div{
-    
+
 }
 
 a.popup:hover span, a.popup:focus span{
      transform:scale(1) rotate(0);
      opacity:1;
+}
+
+.vips{
+    width: 200px;
+    text-align: center;
+    float:right;
+    border: 1px solid black;
+    border-radius: 15px;
+    margin: 0;
+}
+
+.head_vips{
+    background-color: black;
+    border-radius: 15px 15px 0px 0px;
 }
