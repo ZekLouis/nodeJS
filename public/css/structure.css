@@ -85,3 +85,32 @@ a  {
 img.personne{
     height: 200px;
 }
+
+a.popup span{
+     position:absolute;
+     max-width: 300px;
+     margin-top:23px;
+     margin-left:-35px;
+     color:#09c;
+     background:rgba(0,0,0,.9);
+     padding:15px;
+     border-radius:3px;
+     box-shadow:0 0 2px rgba(0,0,0,.5);
+     transform:scale(0) rotate(-12deg);
+     transition:all .25s;
+     opacity:0;
+}
+
+a.popup span img{
+    max-height: 100px;
+    float:left;
+}
+
+a.popup span div{
+    
+}
+
+a.popup:hover span, a.popup:focus span{
+     transform:scale(1) rotate(0);
+     opacity:1;
+}

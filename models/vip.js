@@ -47,7 +47,7 @@ module.exports.getVipFromLetter = function(letter,callback) {
 module.exports.getVip = function(idVip,callback) {
     db.getConnection(function(err, connexion) {
         if (!err) {
-            var sql = "select v.vip_prenom,p.photo_adresse, v.vip_nom, v.vip_naissance, nationalite_nom,v.vip_texte from vip v join nationalite on v.nationalite_numero=nationalite.nationalite_numero left join liaison on liaison.vip_numero=v.vip_numero inner join photo p on p.vip_numero=v.vip_numero where p.photo_numero=1 and v.vip_numero="+idVip+";";
+            var sql = "select v.vip_prenom,p.photo_adresse, v.vip_nom, v.vip_naissance, nationalite_nom,v.vip_texte,v.vip_sexe from vip v join nationalite on v.nationalite_numero=nationalite.nationalite_numero left join liaison on liaison.vip_numero=v.vip_numero inner join photo p on p.vip_numero=v.vip_numero where p.photo_numero=1 and v.vip_numero="+idVip+";";
             // console.log(sql);
             connexion.query(sql, callback);
             connexion.release();
@@ -68,7 +68,7 @@ module.exports.getPhotosVip = function(idVip,callback){
 module.exports.getMariagesVip = function(idVip,callback){
     db.getConnection(function(err,connexion){
         if(!err){
-            var sql = "select v.vip_numero,v.vip_nom,v.vip_prenom,m.date_evenement,m.mariage_fin,m.mariage_lieu from mariage m inner join vip v on m.vip_vip_numero=v.vip_numero where m.vip_numero="+idVip+" UNION select v.vip_numero,v.vip_nom,v.vip_prenom,m.date_evenement,m.mariage_fin,m.mariage_lieu from mariage m inner join vip v on m.vip_numero=v.vip_numero where m.vip_vip_numero="+idVip+";";
+            var sql = "select v.vip_numero,p.photo_adresse, LEFT(v.vip_texte,100) as vip_texte, v.vip_nom,v.vip_prenom,m.date_evenement,m.mariage_fin,m.mariage_lieu from mariage m inner join vip v on m.vip_vip_numero=v.vip_numero inner join photo p on p.vip_numero=v.vip_numero where p.photo_numero=1 and m.vip_numero="+idVip+" UNION select v.vip_numero, p.photo_adresse, LEFT(v.vip_texte,100) as vip_texte,v.vip_nom,v.vip_prenom,m.date_evenement,m.mariage_fin,m.mariage_lieu from mariage m inner join vip v on m.vip_numero=v.vip_numero inner join photo p on p.vip_numero=v.vip_numero where p.photo_numero=1 and m.vip_vip_numero="+idVip+";";
             connexion.query(sql,callback);
             connexion.release();
         }
@@ -78,7 +78,7 @@ module.exports.getMariagesVip = function(idVip,callback){
 module.exports.getLiaisonsVip = function(idVip,callback){
     db.getConnection(function(err,connexion){
         if(!err){
-            var sql = "select v.vip_numero,v.vip_nom,v.vip_prenom,l.date_evenement,l.liaison_motiffin from liaison l inner join vip v on l.vip_vip_numero=v.vip_numero where l.vip_numero="+idVip+" UNION select v.vip_numero,v.vip_nom,v.vip_prenom,l.date_evenement,l.liaison_motiffin from liaison l inner join vip v on l.vip_numero=v.vip_numero where l.vip_vip_numero="+idVip+";"
+            var sql = "select v.vip_numero,p.photo_adresse, LEFT(v.vip_texte,100) as vip_texte,v.vip_nom,v.vip_prenom,l.date_evenement,l.liaison_motiffin from liaison l inner join vip v on l.vip_vip_numero=v.vip_numero inner join photo p on p.vip_numero=v.vip_numero where p.photo_numero=1 and l.vip_numero="+idVip+" UNION select v.vip_numero,LEFT(v.vip_texte, 100) as vip_texte,p.photo_adresse,v.vip_nom,v.vip_prenom,l.date_evenement,l.liaison_motiffin from liaison l inner join vip v on l.vip_numero=v.vip_numero inner join photo p on p.vip_numero=v.vip_numero where p.photo_numero=1 and l.vip_vip_numero="+idVip+";"
             connexion.query(sql,callback);
             connexion.release();
         }
@@ -88,7 +88,7 @@ module.exports.getLiaisonsVip = function(idVip,callback){
 module.exports.getActeur = function(idVip,callback){
     db.getConnection(function(err,connexion){
         if(!err){
-            var sql = "select v.vip_numero, acteur_datedebut,f.film_titre,f.film_daterealisation,v.vip_nom,v.vip_prenom from acteur a inner join joue j on a.vip_numero=j.vip_numero inner join film f on j.film_numero=f.film_numero inner join realisateur r on r.vip_numero=f.vip_numero inner join vip v on v.vip_numero=r.vip_numero where acteur_datedebut is not null and year(acteur_datedebut) <> 0 where v.vip_numero="+idVip+";"
+            var sql = "select a.vip_numero, p.photo_adresse, LEFT(v.vip_texte,100) as vip_texte, acteur_datedebut,f.film_titre,f.film_daterealisation,r.vip_numero,v.vip_nom,v.vip_prenom from acteur a inner join joue j on a.vip_numero=j.vip_numero inner join film f on j.film_numero=f.film_numero inner join realisateur r on r.vip_numero=f.vip_numero inner join vip v on r.vip_numero=v.vip_numero inner join photo p on v.vip_numero=p.vip_numero where p.photo_numero=1 and acteur_datedebut is not null and year(acteur_datedebut) <> 0 and a.vip_numero="+idVip+";"
             connexion.query(sql,callback);
             connexion.release();
         }
@@ -98,7 +98,7 @@ module.exports.getActeur = function(idVip,callback){
 module.exports.getChanteur = function(idVip,callback){
     db.getConnection(function(err,connexion){
         if(!err){
-            var sql = "select c.vip_numero,c.chanteur_specialite,a.album_titre, year(a.album_date), m.maisondisque_nom from chanteur c inner join composer co on c.vip_numero=co.vip_numero inner join album a on a.album_numero=co.album_numero inner join maisondisque m on m.maisondisque_numero=a.maisondisque_numero where c.vip_numero="+idVip+";"
+            var sql = "select c.vip_numero,c.chanteur_specialite,a.album_titre,a.album_date, m.maisondisque_nom from chanteur c inner join composer co on c.vip_numero=co.vip_numero inner join album a on a.album_numero=co.album_numero inner join maisondisque m on m.maisondisque_numero=a.maisondisque_numero where c.vip_numero="+idVip+";"
             connexion.query(sql,callback);
             connexion.release();
         }
@@ -108,7 +108,7 @@ module.exports.getChanteur = function(idVip,callback){
 module.exports.getMannequin = function(idVip,callback){
     db.getConnection(function(err,connexion){
         if(!err){
-            var sql = "select distinct d.defile_lieu,d.defile_date,v.vip_nom,v.vip_prenom from mannequin m inner join defiledans dd on m.vip_numero=dd.vip_numero inner join defile d on d.defile_numero=dd.defile_numero inner join couturier c on c.vip_numero=d.vip_numero inner join vip v on v.vip_numero=c.vip_numero where v.vip_numero="+idVip+";"
+            var sql = "select distinct p.photo_adresse,LEFT(v.vip_texte,100) as vip_texte ,d.defile_lieu,d.defile_date,c.vip_numero,v.vip_nom,v.vip_prenom from mannequin m inner join defiledans dd on m.vip_numero=dd.vip_numero inner join defile d on d.defile_numero=dd.defile_numero inner join couturier c on c.vip_numero=d.vip_numero inner join vip v on c.vip_numero=v.vip_numero inner join photo p on p.vip_numero=v.vip_numero where p.photo_numero=1 and m.vip_numero="+idVip+";"
             connexion.query(sql,callback);
             connexion.release();
         }
@@ -118,7 +118,7 @@ module.exports.getMannequin = function(idVip,callback){
 module.exports.getCouturier = function(idVip,callback){
     db.getConnection(function(err,connexion){
         if(!err){
-            var sql = "select couturier.vip_numero, defile_numero, defile_lieu, defile_date from couturier join defile on couturier.vip_numero=defile.vip_numero where v.vip_numero="+idVip+";"
+            var sql = "select couturier.vip_numero, defile_numero, defile_lieu, defile_date from couturier join defile on couturier.vip_numero=defile.vip_numero where couturier.vip_numero="+idVip+";"
             connexion.query(sql,callback);
             connexion.release();
         }
@@ -128,7 +128,7 @@ module.exports.getCouturier = function(idVip,callback){
 module.exports.getRealisateur = function(idVip,callback){
     db.getConnection(function(err,connexion){
         if(!err){
-            var sql = "select film_titre, film_daterealisation from film join realisateur on film.vip_numero=realisateur.vip_numero where v.vip_numero="+idVip+";"
+            var sql = "select film_titre, film_daterealisation from film join realisateur on film.vip_numero=realisateur.vip_numero where realisateur.vip_numero="+idVip+";"
             connexion.query(sql,callback);
             connexion.release();
         }
