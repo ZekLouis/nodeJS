@@ -1,0 +1,22 @@
+<div class="vips">
+{{#each vips}}
+    <a href="/album/{{../page}}/{{this.vip_numero}}/0"><img class="lister" src="/images/vip/{{this.photo_adresse}}" alt="Image de star"></a>
+{{/each}}
+    <p>
+
+        {{#ifCond this.page ">" 0}}
+            <a href="/album/0">Début</a>
+            <a href="/album/{{this.prevPage}}">Precedent</a>
+        {{/ifCond}}
+        {{#ifCond this.nextPage '<=' this.endPage}}
+            <a href="/album/{{this.nextPage}}">Suivant</a>
+
+            <a href="/album/{{this.endPage}}">Fin</a>
+
+
+        {{/ifCond}}
+
+
+    </p>
+
+</div>

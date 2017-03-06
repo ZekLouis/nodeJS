@@ -154,3 +154,34 @@ module.exports.getArticleVip = function(idVip,callback){
         }
     })
 };
+module.exports.getAllPhotosVips = function(page,callback){
+    db.getConnection(function(err, connexion){
+        if(!err){
+            var limit = page*12;
+        var sql = "SELECT photo_adresse, vip_numero from photo where photo_numero = 1 LIMIT "+limit+",12;";
+            connexion.query(sql, callback);
+            connexion.release();
+        }
+    })
+};
+module.exports.getNbPhotosVips = function (callback){
+    db.getConnection(function(err, connexion){
+        if(!err){
+
+            var sql = "SELECT  count(vip_numero) as nbVip from photo where photo_numero=1";
+            connexion.query(sql, callback);
+            connexion.release();
+        }
+    })
+};
+module.exports.getPhotoVip = function(callback){
+    db.getConnection(vip, numPhoto, function(err, connexion){
+        var vipNum = vip;
+        var nPhoto = numPhoto;
+        if(!err){
+            var sql = "SELECT vip_nom, vip_prenom, photo_adresse, photo_numero, photo_commentaire from vip v inner join photo p on v.vip_numero=p.vip_numero where v.vip_numero="+vipNum+" and photo_numero="+nPhoto+"";
+            connexion.query(sql, callback);
+            connexion.release();
+        }
+    })
+}

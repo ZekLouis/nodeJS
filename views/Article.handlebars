@@ -3,6 +3,13 @@
 
 {{#if articles}}
     {{#each articles}}
-        article
+        <fieldset>
+            <legend>Article</legend>
+            <p>{{this.vip_prenom}} {{this.vip_nom}}</p>
+            <div>
+                {{this.article_resume}}
+            </div>
+            <p>[Ajouté le {{formatDate this.article_date_insert 'DD MMMM YYYY'}}] <a href="/repertoire/detailsVip/{{this.vip_numero}}">Voir sa fiche</a></p>
+        </fieldset>
     {{/each}}
 {{/if}}

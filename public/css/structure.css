@@ -128,3 +128,8 @@ a.popup:hover span, a.popup:focus span{
     background-color: black;
     border-radius: 15px 15px 0px 0px;
 }
+
+.lister{
+    height:80px;
+    width: 40px;
+}

@@ -23,10 +23,12 @@ module.exports = function(app){
 
 // Articles
     app.get('/articles', ArticlesController.Article);
-    app.get('/articles.:idVip', ArticlesController.ArticleVip)
+    app.get('/articles/:idVip', ArticlesController.ArticleVip)
 
  // albums
-   app.get('/album', AlbumController.ListerAlbum);
+   app.get('/album/:page', AlbumController.ListerAlbum);
+   app.get('/album/:page/:vip/:numPhoto', AlbumController.ListerAlbumDetails);
+
 
 // tout le reste
   app.get('*', HomeController.Index);

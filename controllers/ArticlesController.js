@@ -34,10 +34,19 @@ module.exports.ArticleVip = function(request, response){
                 }
                 callback(null,result);
             });
+        },
+        function(callback){
+            model.getAllVips(function(err, result){
+              if (err) {
+                console.log(err);
+                return;
+              }
+              callback(null,result);
+          });
         }
     ],function(err,result){
         response.articles = result[0];
-        console.log(result[0])
+        response.vips = result[1];
         response.render('Article',response);
     });
 }
