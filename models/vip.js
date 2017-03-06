@@ -174,14 +174,22 @@ module.exports.getNbPhotosVips = function (callback){
         }
     })
 };
-module.exports.getPhotoVip = function(callback){
-    db.getConnection(vip, numPhoto, function(err, connexion){
-        var vipNum = vip;
-        var nPhoto = numPhoto;
+module.exports.getPhotoVip = function(vip, numPhoto, callback){
+    db.getConnection(function(err, connexion){
         if(!err){
-            var sql = "SELECT vip_nom, vip_prenom, photo_adresse, photo_numero, photo_commentaire from vip v inner join photo p on v.vip_numero=p.vip_numero where v.vip_numero="+vipNum+" and photo_numero="+nPhoto+"";
+            var sql = "SELECT v.vip_numero, vip_nom, vip_prenom, photo_adresse, photo_numero, photo_commentaire from vip v inner join photo p on v.vip_numero=p.vip_numero where v.vip_numero="+vip+" and photo_numero="+numPhoto+";";
             connexion.query(sql, callback);
             connexion.release();
         }
     })
-}
+};
+
+module.exports.getTabPhotos = function(vip, callback){
+    db.getConnection(function(err, connexion){
+        if(!err){
+            var sql = "SELECT photo_numero from photo where vip_numero="+vip+";"
+            connexion.query(sql, callback);
+            connexion.release();
+        }
+    })
+};
