@@ -1,0 +1,61 @@
+{{> menuVip}}
+
+{{#if this.message}}
+    <p>{{this.message}}</p>
+{{/if}}
+
+<fieldset class="formAjoutVip">
+    <legend>Ajout d'un VIP</legend>
+    <form action="/vips/ajouter" method="post">
+        <table>
+            <tr>
+                <td><label for="nom">Nom* :</label></td>
+                <td><input type="text" name="nom" /></td>
+            </tr>
+            <tr>
+                <td><label for="prenom">Prénom* :</label></td>
+                <td><input type="text" name="prenom" /></td>
+            </tr>
+            <tr>
+                <td><label for="sexe">Sexe :</label></td>
+                <td>
+                    <select name="sexe">
+                        <option value="M">Masculin</option>
+                        <option value="F">Féminin</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="dateNaissance">Date de naissance :</label></td>
+                <td><input type="date" name="dateNaissance" /></td>
+            </tr>
+            <tr>
+                <td><label for="nationalite">Nationalité :</label></td>
+                <td>
+                    <select name="nationalite">
+                        {{#each nationalite}}
+                            <option value="{{this.nationalite_numero}}">{{this.nationalite_nom}}</option>
+                        {{/each}}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="commentaire">Commentaire :</label></td>
+                <td><textarea name="commentaire" rows="8" cols="80"></textarea></td>
+            </tr>
+            <tr>
+                <td><label for="image">Sélectionner une image :</label></td>
+                <td><input type="file" name="image" /><br></td>
+            </tr>
+            <tr>
+                <td><label for="sujetImage">Sujet :</label></td>
+                <td><input type="text" name="sujetImage" value=""></td>
+            </tr>
+            <tr>
+                <td><label for="commentaireImage">Commentaire image :</label></td>
+                <td><textarea name="commentaireImage" rows="8" cols="80"></textarea></td>
+            </tr>
+        </table>
+        <p><input type="reset" name="" value="Annuler"><input type="submit" name="" value="Ajouter"></p>
+    </form>
+</fieldset>

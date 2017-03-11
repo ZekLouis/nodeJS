@@ -6,7 +6,7 @@ function hbsHelpers(handlebars) {
     return handlebars.create({
         defaultLayout: 'mainAdmin',
 
-        partialsDir: ['views/partials/'],
+        partialsDir: ['admin/views/partials/'],
 
         helpers: {
             inc: function(value, options) {

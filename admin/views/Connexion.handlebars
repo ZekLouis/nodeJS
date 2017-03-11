@@ -11,5 +11,11 @@
     <p>
         <input type="reset" name="annuler" value="Annuler">
         <input type="submit" name="Connexion" value="Connexion">
+
+    </p>
+    <p>
+        {{#if this.erreur}}
+            {{this.erreur}}
+        {{/if}}
     </p>
 </form>
