@@ -12,8 +12,10 @@ module.exports = function(app){
     app.get('/vips/ajouter', AdminController.VipsAjouter);
     app.post('/vips/ajouter', AdminController.VipsAjouterPost);
     app.get('/vips/modifier', AdminController.VipsModifier);
-    app.get('/vips/modifier', AdminController.VipsModifierPost);
+    app.post('/vips/modifier', AdminController.VipsModifierPost);
+    app.post('/vips/modifierDonnees', AdminController.VipsModifierPostDonnees);
     app.get('/vips/supprimer', AdminController.VipsSupprimer);
+    app.post('/vips/supprimer', AdminController.VipsSupprimerPost);
 
 // tout le reste
   app.get('*', AdminController.Connexion);

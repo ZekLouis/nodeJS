@@ -6,6 +6,7 @@
   "dependencies": {
     "express": ">4.13",
     "express-handlebars": "*",
+    "express-formidable": "*",
     "express-session": ">1.12",
     "cookie-parser": ">=1.4",
     "body-parser": ">1.10",

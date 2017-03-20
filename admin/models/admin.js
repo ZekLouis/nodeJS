@@ -4,7 +4,6 @@ module.exports.CheckConnection = function(login,passwd,callback) {
     db.getConnection(function(err, connexion) {
         if (!err) {
             var sql = "SELECT login, passwd from parametres where login=\""+login+"\"and passwd=\""+passwd+"\";";
-              // console.log(sql);
             connexion.query(sql, callback);
             connexion.release();
         }
@@ -21,11 +20,11 @@ module.exports.getNationalites = function(callback){
     });
 };
 
-module.exports.ajouterVip = function(nom,prenom,nationalite_numero,sexe,dateNaissance,commentaire,callback){
+module.exports.ajouterVip = function(data,callback){
     db.getConnection(function(err,connexion){
         if(!err){
-            var sql = "INSERT INTO VIP(vip_nom,vip_prenom,nationalite_numero,vip_sexe,vip_naissance,vip_texte,vip_date_insertion) VALUES ('"+nom+"','"+prenom+"',"+nationalite_numero+",'"+sexe+"','"+dateNaissance+" 00:00:00',\""+commentaire+"\",NOW());";
-            connexion.query(sql, callback);
+            var sql = "INSERT INTO VIP SET ?";
+            connexion.query(sql, data, callback);
             connexion.release();
         }
     });
@@ -37,4 +36,48 @@ module.exports.getVips = function(callback){
             connexion.query(sql, callback);
             connexion.release();
         })
+};
+
+module.exports.ajouterPhoto = function(id,sujet,commentaireImage,image,callback){
+        db.getConnection(function(err,connexion){
+            if(!err){
+                var sql = "INSERT INTO PHOTO(PHOTO_NUMERO,VIP_NUMERO,PHOTO_SUJET,PHOTO_COMMENTAIRE,PHOTO_ADRESSE) VALUES (1,"+id+",\”"+sujet+"\”,\""+commentaireImage+"\",\""+image+"\");";
+                connexion.query(sql, callback);
+                connexion.release();
+                console.log("in");
+            }else{
+                console.log(err);
+            }
+        })
+};
+
+module.exports.getVip = function(idVip,callback) {
+    db.getConnection(function(err, connexion) {
+        if (!err) {
+            var sql = "select v.vip_prenom, v.vip_nom, v.vip_naissance, v.nationalite_numero,v.vip_texte,v.vip_sexe from vip v join nationalite on v.nationalite_numero=nationalite.nationalite_numero left join liaison on liaison.vip_numero=v.vip_numero inner join photo p on p.vip_numero=v.vip_numero where p.photo_numero=1 and v.vip_numero="+idVip+";";
+            // console.log(sql);
+            connexion.query(sql, callback);
+            connexion.release();
+        }
+    });
+};
+
+module.exports.updateVip = function(idVip,data,callback) {
+    db.getConnection(function(err, connexion) {
+        if (!err) {
+            var sql = "UPDATE vip SET ? where vip.vip_numero="+idVip+";";
+            connexion.query(sql, data, callback);
+            connexion.release();
+        }
+    });
+};
+
+module.exports.suppVip = function(idVip,callback) {
+    db.getConnection(function(err, connexion) {
+        if (!err) {
+            var sql = "DELETE FROM vip where vip_numero="+idVip+";";
+            connexion.query(sql, callback);
+            connexion.release();
+        }
+    });
 };

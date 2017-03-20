@@ -1,6 +1,6 @@
 {{> menuVip}}
-<h2>Modifier un VIP</h2>
-<form action="/vips/modifier" method="post">
+<h2>Supprimer un VIP</h2>
+<form action="/vips/supprimer" method="post">
     <label for="vip"></label>
     <select name="vip">
         {{#each vips}}
@@ -8,5 +8,5 @@
         {{/each}}
     </select><br>
     <br>
-    <input type="submit" value="Modifier">
+    <input type="submit" value="Supprimer">
 </form>
