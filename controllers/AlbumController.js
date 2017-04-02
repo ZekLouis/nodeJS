@@ -40,7 +40,7 @@ module.exports.ListerAlbum = 	function(request, response){
   module.exports.ListerAlbumDetails = function(request, response){
       var page = request.params.page;
       var vip = request.params.vip;
-      var numPhoto = request.params.numPhoto;Ò
+      var numPhoto = request.params.numPhoto;
       async.parallel([
           function(callback){
               model.getAllPhotosVips(page,function(err, result){
