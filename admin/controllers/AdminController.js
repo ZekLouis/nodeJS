@@ -46,16 +46,54 @@ module.exports.Deconnexion = function(request, response){
 };
 
 module.exports.Photos = function(request, response){
+    if(!request.session.connection){
+      response.title = 'Connexion';
+      response.render('Connexion', response);
+      return;
+    }
     response.title = 'Photos';
     response.render('Photos', response);
 };
 
+module.exports.PhotosAjouter = function(request, response){
+  if(!request.session.connection){
+    response.title = 'Connexion';
+    response.render('Connexion', response);
+    return;
+  }
+  async.parallel([
+      function(callback){
+          model.getVips(function(err, result){
+              if(err){
+                  console.log(err);
+                  return;
+              }
+              callback(null,result);
+          });
+      }
+  ],function(err,result){
+      response.vips = result[0];
+      response.title = 'Ajouter une photo';
+      response.render('PhotosAjouter', response);
+  });
+}
+
 module.exports.Vips = function (request, response){
+    if(!request.session.connection){
+      response.title = 'Connexion';
+      response.render('Connexion', response);
+      return;
+    }
     response.title = 'Vips';
     response.render('Vips', response);
 };
 
 module.exports.VipsAjouter = function(request, response){
+    if(!request.session.connection){
+      response.title = 'Connexion';
+      response.render('Connexion', response);
+      return;
+    }
     async.parallel([
         function(callback){
             model.getNationalites(function(err, result){
@@ -74,6 +112,11 @@ module.exports.VipsAjouter = function(request, response){
 };
 
 module.exports.VipsModifier = function(request, response){
+    if(!request.session.connection){
+      response.title = 'Connexion';
+      response.render('Connexion', response);
+      return;
+    }
     async.parallel([
         function(callback){
             model.getVips(function(err,result){
@@ -92,6 +135,11 @@ module.exports.VipsModifier = function(request, response){
 };
 
 module.exports.VipsSupprimer = function(request, response){
+    if(!request.session.connection){
+      response.title = 'Connexion';
+      response.render('Connexion', response);
+      return;
+    }
     async.parallel([
         function(callback){
             model.getVips(function(err,result){
@@ -110,16 +158,28 @@ module.exports.VipsSupprimer = function(request, response){
 };
 
 module.exports.VipsSupprimerPost = function(request, response){
+    if(!request.session.connection){
+      response.title = 'Connexion';
+      response.render('Connexion', response);
+      return;
+    }
     var idVip = request.body.vip;
     async.parallel([
         function(callback){
-            model.suppVip(idVip, function(err,result){
+            model.suppVipPhoto(idVip, function(err, result){
+              if(err){
+                console.log(err);
+                return;
+              }
+              model.suppVip(idVip, function(err,result){
                 if(err){
                     console.log(err);
                     return;
                 }
                 callback(null, result);
+              })
             })
+
         }
     ],function(err, result){
         model.getVips(function(err,result){
@@ -132,11 +192,81 @@ module.exports.VipsSupprimerPost = function(request, response){
     });
 };
 
+module.exports.PhotosAjouterPost = function(request, response){
+  if(!request.session.connection){
+    response.title = 'Connexion';
+    response.render('Connexion', response);
+    return;
+  }
+  var dataPhoto = {
+      photo_numero:1,
+      vip_numero:0,
+      photo_sujet:"",
+      photo_commentaire:"",
+      photo_adresse:""
+  };
+  var form = new formidable.IncomingForm();
+
+  async.parallel([
+      function(callback){
+          form.parse(request, function(err, fields, files){
+              dataPhoto.photo_adresse = files.image.name;
+              dataPhoto.photo_sujet = fields.titre;
+              dataPhoto.photo_commentaire = fields.commentaireImage;
+              dataPhoto.vip_numero = fields.vip;
+          });
+
+          form.on('fileBegin', function (name, file){
+              file.path = __dirname + '/../../public/images/vip/' + file.name;
+              console.log(file.path);
+          });
+
+          form.on('file', function (name, file){
+              console.log('Uploaded ' + file.name);
+              callback(null);
+          });
+
+      },
+      function(callback){
+          model.getVips(function(err, result){
+              if(err){
+                  console.log(err);
+                  return;
+              }
+              callback(null,result);
+          });
+      }
+  ],function(err,result){
+      response.vips = result[1];
+      model.getPhotoNumeroVip(dataPhoto.vip_numero, function(err, result){
+        if(err){
+          console.log(err);
+          return;
+        }
+        console.log(result[0].photo_numero);
+        dataPhoto.photo_numero = result[0].photo_numero+1;
+        model.ajouterPhoto(dataPhoto, function(err, results){
+            if(err){
+                console.log(err);
+                return;
+            }
+            response.message = 'Insertion réussie';
+            response.title = 'Ajouter une photo';
+            response.render('PhotosAjouter', response);
+        });
+      })
+  });
+}
+
 module.exports.VipsAjouterPost = function(request, response){
+        if(!request.session.connection){
+          response.title = 'Connexion';
+          response.render('Connexion', response);
+          return;
+        }
         /**
          * Gestion de l'upload du fichier
          */
-        console.log("1")
         var data = {
             vip_nom:"",
             vip_prenom:"",
@@ -218,6 +348,11 @@ module.exports.VipsAjouterPost = function(request, response){
 };
 
 module.exports.VipsModifierPost = function(request,response){
+    if(!request.session.connection){
+      response.title = 'Connexion';
+      response.render('Connexion', response);
+      return;
+    }
     var idVip = request.body.vip;
     async.parallel([
         function(callback){
@@ -248,6 +383,11 @@ module.exports.VipsModifierPost = function(request,response){
 };
 
 module.exports.VipsModifierPostDonnees = function(request,response){
+    if(!request.session.connection){
+      response.title = 'Connexion';
+      response.render('Connexion', response);
+      return;
+    }
     var idVip = request.session.idVip;
     var data = {
         vip_nom:request.body.nom,
