@@ -1,3 +1,4 @@
+
 var db = require('../../configDb');
 
 module.exports.CheckConnection = function(login,passwd,callback) {
@@ -23,7 +24,7 @@ module.exports.getNationalites = function(callback){
 module.exports.ajouterVip = function(data,callback){
     db.getConnection(function(err,connexion){
         if(!err){
-            var sql = "INSERT INTO VIP SET ?";
+            var sql = "INSERT INTO vip SET ?";
             connexion.query(sql, data, callback);
             connexion.release();
         }
@@ -38,11 +39,20 @@ module.exports.getVips = function(callback){
         })
 };
 
+module.exports.getPhotoNumeroVip = function(idVip, callback){
+  db.getConnection(function(err, connexion){
+    var sql = "select MAX(PHOTO_NUMERO) as photo_numero from photo where vip_numero="+idVip+";";
+    connexion.query(sql, callback);
+    connexion.release();
+  })
+};
+
 module.exports.ajouterPhoto = function(data,callback){
         db.getConnection(function(err,connexion){
             if(!err){
-                var sql = "INSERT INTO PHOTO(PHOTO_NUMERO,VIP_NUMERO,PHOTO_SUJET,PHOTO_COMMENTAIRE,PHOTO_ADRESSE) VALUES (1,"+data["vip_numero"]+",\""+data["photo_sujet"]+"\",\""+data["photo_commentaire"]+"\",\""+data["photo_adresse"]+"\");";
-                connexion.query(sql, callback);
+                console.log(data);
+                var sql = "INSERT INTO photo SET ?";
+                connexion.query(sql, data, callback);
                 connexion.release();
             }else{
                 console.log(err);
@@ -71,12 +81,22 @@ module.exports.updateVip = function(idVip,data,callback) {
     });
 };
 
+module.exports.suppVipPhoto = function(idVip,callback){
+  db.getConnection(function(err,connexion){
+    if(!err){
+      var sql = "DELETE FROM photo where vip_numero="+idVip+";";
+      connexion.query(sql,callback);
+      connexion.release();
+    }
+  });
+};
+
 module.exports.suppVip = function(idVip,callback) {
     db.getConnection(function(err, connexion) {
         if (!err) {
-            var sql = "DELETE FROM vip where vip_numero="+idVip+";";
-            connexion.query(sql, callback);
-            connexion.release();
+          var sql = "DELETE FROM vip where vip_numero="+idVip+";";
+          connexion.query(sql, callback);
+          connexion.release();
         }
     });
 };

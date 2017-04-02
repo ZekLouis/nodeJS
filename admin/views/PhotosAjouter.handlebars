@@ -1,0 +1,36 @@
+{{> menuPhotos}}
+
+{{#if this.message}}
+    <p>{{this.message}}</p>
+{{/if}}
+
+<fieldset class="formAjoutVip">
+    <legend><h2>Ajout d'une photo</h2></legend>
+    <form action="/photos/ajouter" enctype="multipart/form-data" method="post">
+        <table>
+            <tr>
+                <td><label for="vip">Nom du vip :</label></td>
+                <td>
+                  <select name="vip">
+                    {{#each vips}}
+                      <option value="{{this.vip_numero}}">{{this.vip_nom}} {{this.vip_prenom}}</option>
+                    {{/each}}
+                  </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="image">Adresse de la photo :</label></td>
+                <td><input type="file" name="image" required/></td>
+            </tr>
+            <tr>
+                <td><label for="titre">Titre :</label></td>
+                <td><input type="text" name="titre" required></td>
+            </tr>
+            <tr>
+                <td><label for="commentaireImage">Commentaire image :</label></td>
+                <td><textarea name="commentaireImage" rows="8" cols="80" required></textarea></td>
+            </tr>
+        </table>
+        <p><input type="reset" name="" value="Annuler"><input type="submit" name="" value="Ajouter"></p>
+    </form>
+</fieldset>
