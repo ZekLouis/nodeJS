@@ -23,7 +23,7 @@ module.exports.getNationalites = function(callback){
 module.exports.ajouterVip = function(data,callback){
     db.getConnection(function(err,connexion){
         if(!err){
-            var sql = "INSERT INTO VIP SET ?";
+            var sql = "INSERT INTO vip SET ?";
             connexion.query(sql, data, callback);
             connexion.release();
         }
@@ -38,13 +38,12 @@ module.exports.getVips = function(callback){
         })
 };
 
-module.exports.ajouterPhoto = function(id,sujet,commentaireImage,image,callback){
+module.exports.ajouterPhoto = function(data,callback){
         db.getConnection(function(err,connexion){
             if(!err){
-                var sql = "INSERT INTO PHOTO(PHOTO_NUMERO,VIP_NUMERO,PHOTO_SUJET,PHOTO_COMMENTAIRE,PHOTO_ADRESSE) VALUES (1,"+id+",\”"+sujet+"\”,\""+commentaireImage+"\",\""+image+"\");";
+                var sql = "INSERT INTO photo(PHOTO_NUMERO,VIP_NUMERO,PHOTO_SUJET,PHOTO_COMMENTAIRE,PHOTO_ADRESSE) VALUES (1,"+data["vip_numero"]+",\""+data["photo_sujet"]+"\",\""+data["photo_commentaire"]+"\",\""+data["photo_adresse"]+"\");";
                 connexion.query(sql, callback);
                 connexion.release();
-                console.log("in");
             }else{
                 console.log(err);
             }

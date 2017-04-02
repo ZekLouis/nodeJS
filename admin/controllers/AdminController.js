@@ -148,7 +148,7 @@ module.exports.VipsAjouterPost = function(request, response){
         };
 
         var dataPhoto = {
-            photo_numero:0,
+            photo_numero:1,
             vip_numero:0,
             photo_sujet:"",
             photo_commentaire:"",
@@ -170,15 +170,16 @@ module.exports.VipsAjouterPost = function(request, response){
                     dataPhoto.photo_sujet = fields.sujetImage;
                     dataPhoto.photo_commentaire = fields.commentaireImage;
 
-                    form.on('fileBegin', function (name, file){
-                        file.path = __dirname + '/../../public/images/vip/' + file.name;
-                        console.log(file.name);
-                    });
 
-                    form.on('file', function (name, file){
-                        console.log('Uploaded ' + file.name);
-                    });
+                });
 
+                form.on('fileBegin', function (name, file){
+                    file.path = __dirname + '/../../public/images/vip/' + file.name;
+                    console.log(file.path);
+                });
+
+                form.on('file', function (name, file){
+                    console.log('Uploaded ' + file.name);
                     callback(null);
                 });
 
@@ -201,6 +202,8 @@ module.exports.VipsAjouterPost = function(request, response){
                     return;
                 }
                 dataPhoto.vip_numero = result['insertId'];
+                console.log(result['insertId']);
+                console.log(dataPhoto);
                 model.ajouterPhoto(dataPhoto, function(err, results){
                     if(err){
                         console.log(err);
