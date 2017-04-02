@@ -1,0 +1,12 @@
+{{> menuVip}}
+<h2>Modifier un VIP</h2>
+<form action="/vips/modifier" method="post">
+    <label for="vip"></label>
+    <select name="vip">
+        {{#each vips}}
+            <option value="{{this.vip_numero}}">{{this.vip_nom}} {{this.vip_prenom}}</option>
+        {{/each}}
+    </select><br>
+    <br>
+    <input type="submit" value="Modifier">
+</form>

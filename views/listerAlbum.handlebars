@@ -1,2 +1,19 @@
 <h1> Album photo des stars </h1>
 {{> listeImagesVips}}
+
+{{#if photo}}
+    {{#each photo}}
+        <p>{{this.vip_nom}} {{this.vip_prenom}}</p>
+        <img src="/images/vip/{{this.photo_adresse}}" alt="Image de la star">
+        <fieldset>
+            <legend>Commentaire</legend>
+            {{this.photo_commentaire}}
+        </fieldset>
+        {{#if ../prevPhoto}}
+            <a href="/album/{{../page}}/{{this.vip_numero}}/{{../prevPhoto}}"><<</a>
+        {{/if}}
+        {{#if ../nextPhoto}}
+            <a href="/album/{{../page}}/{{this.vip_numero}}/{{../nextPhoto}}">>></a>
+        {{/if}}
+    {{/each}}
+{{/if}}

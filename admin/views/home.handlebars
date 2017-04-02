@@ -1,0 +1,6 @@
+<h2>Accueil</h2>
+{{#ifCond session.connection '==' true}}
+    <p>Vous êtes connecté</p>
+{{else}}
+    <p>Erreur de connexion</p>
+{{/ifCond}}

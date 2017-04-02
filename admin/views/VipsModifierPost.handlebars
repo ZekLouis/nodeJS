@@ -1,0 +1,59 @@
+{{> menuVip}}
+
+<fieldset class="formAjoutVip">
+    {{#each vip}}
+        <legend><h2>Modification de {{this.vip_nom}} {{this.vip_prenom}}</h2></legend>
+        <form class="" action="/vips/modifierDonnees" method="post">
+
+
+            <table>
+                <tr>
+                    <td><label for="nom">Nom* :</label></td>
+                    <td><input type="text" name="nom" value="{{this.vip_nom}}"/></td>
+                </tr>
+                <tr>
+                    <td><label for="prenom">Prénom* :</label></td>
+                    <td><input type="text" name="prenom" value="{{this.vip_prenom}}"/></td>
+                </tr>
+                <tr>
+                    <td><label for="sexe">Sexe :</label></td>
+                    <td>
+                        <select name="sexe">
+                            {{#ifCond this.vip_sexe '==' 'M'}}
+                                <option selected="selected" value="M">Masculin</option>
+                                <option value="F">Féminin</option>
+                            {{else}}
+                                <option value="M">Masculin</option>
+                                <option selected="selected" value="F">Féminin</option>
+                            {{/ifCond}}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="dateNaissance">Date de naissance :</label></td>
+                    <td><input type="date" name="dateNaissance" value="{{formatDate this.vip_naissance 'YYYY-MM-DD'}}"/></td>
+                </tr>
+                <tr>
+                    <td><label for="nationalite">Nationalité :</label></td>
+                    <td>
+                        <select name="nationalite">
+                            {{#each ../nationalite}}
+                                {{#ifCond ../this.nationalite_numero '==' this.nationalite_numero}}
+                                    <option selected="selected" value="{{this.nationalite_numero}}">{{this.nationalite_nom}}</option>
+                                {{else}}
+                                    <option value="{{this.nationalite_numero}}">{{this.nationalite_nom}}</option>
+                                {{/ifCond}}
+                            {{/each}}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="commentaire">Commentaire :</label></td>
+                    <td><textarea name="commentaire" rows="8" cols="80">{{this.vip_texte}}</textarea></td>
+                </tr>
+            </table>
+
+            <p><input type="reset" value="Annuler"><input type="submit" value="Modifier"></p>
+        </form>
+    {{/each}}
+</fieldset>
