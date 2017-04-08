@@ -49,7 +49,7 @@ module.exports.getPhotoNumeroVip = function(idVip, callback){
 
 module.exports.getPhotoSujet = function (idVip, callback) {
     db.getConnection(function(err, connexion){
-      var sql = "select photo_numero, photo_sujet from photo where vip_numero="+idVip+" and photo_numero <> 1;";
+      var sql = "select photo_adresse, photo_sujet from photo where vip_numero="+idVip+" and photo_numero <> 1;";
       connexion.query(sql, callback);
       connexion.release();
     })
@@ -132,9 +132,19 @@ module.exports.suppMariageVip = function (idVip, callback) {
 module.exports.supPhoto = function (idVip, idPhoto, callback) {
   db.getConnection(function(err, connexion){
     if (!err){
-      var sql = "delete from photo where photo_numero="+idPhoto+" and vip_numero="+idVip+";";
+      var sql = "delete from photo where photo_adresse='"+idPhoto+"' and vip_numero="+idVip+";";
       connexion.query(sql, callback);
       connexion.release();
     }
   });
 };
+
+module.exports.getVipPlsPhotos = function(callback){
+  db.getConnection(function(err, connexion){
+    if (!err){
+      var sql = "select vip_numero, vip_nom, vip_prenom from vip where vip_numero in(select vip_numero from photo where photo_numero <> 1);";
+      connexion.query(sql, callback);
+      connexion.release();
+    }
+  });
+}

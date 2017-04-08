@@ -182,3 +182,8 @@ a.popup:hover span, a.popup:focus span{
 .formAjoutVip p{
     text-align: center;
 }
+
+.error{
+  color: red;
+  font-weight: bold;
+}
