@@ -1,0 +1,17 @@
+{{> menuPhotos}}
+<h2>Supprimer une photo de VIP</h2>
+
+  {{#if vips}}
+    <form class="" action="/photos/supprimer" method="post">
+      <label for="vip">Selectionnez la Photo à supprimer</label>
+      <select name="vip">
+        {{#each vips}}
+          <option value="{{this.vip_numero}}">{{this.vip_nom}} {{this.vip_prenom}}</option>
+        {{/each}}
+      </select><br>
+      <br>
+      <input type="submit" value="Supprimer">
+    </form>
+  {{else}}
+
+  {{/if}}
