@@ -44,7 +44,6 @@ module.exports.ajouterPhoto = function(id,sujet,commentaireImage,image,callback)
                 var sql = "INSERT INTO PHOTO(PHOTO_NUMERO,VIP_NUMERO,PHOTO_SUJET,PHOTO_COMMENTAIRE,PHOTO_ADRESSE) VALUES (1,"+id+",\”"+sujet+"\”,\""+commentaireImage+"\",\""+image+"\");";
                 connexion.query(sql, callback);
                 connexion.release();
-                console.log("in");
             }else{
                 console.log(err);
             }
