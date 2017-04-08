@@ -47,6 +47,14 @@ module.exports.getPhotoNumeroVip = function(idVip, callback){
   })
 };
 
+module.exports.getPhotoSujet = function (idVip, callback) {
+    db.getConnection(function(err, connexion){
+      var sql = "select photo_numero, photo_sujet from photo where vip_numero="+idVip+" and photo_numero <> 1;";
+      connexion.query(sql, callback);
+      connexion.release();
+    })
+};
+
 module.exports.ajouterPhoto = function(data,callback){
         db.getConnection(function(err,connexion){
             if(!err){
@@ -99,4 +107,34 @@ module.exports.suppVip = function(idVip,callback) {
           connexion.release();
         }
     });
+};
+
+module.exports.suppLiaisonVip = function(idVip, callback){
+    db.getConnection(function(err, connexion){
+      if (!err){
+        var sql = "DELETE FROM liaison where vip_numero="+idVip+" or vip_vip_numero="+idVip+";";
+        connexion.query(sql, callback);
+        connexion.release();
+      }
+    });
+}
+
+module.exports.suppMariageVip = function (idVip, callback) {
+    db.getConnection(function(err, connexion){
+      if (!err){
+        var sql = "DELETE FROM mariage where vip_numero="+idVip+" or vip_vip_numero="+idVip+";";
+        connexion.query(sql, callback);
+        connexion.release();
+      }
+    });
+};
+
+module.exports.supPhoto = function (idVip, idPhoto, callback) {
+  db.getConnection(function(err, connexion){
+    if (!err){
+      var sql = "delete from photo where photo_numero="+idPhoto+" and vip_numero="+idVip+";";
+      connexion.query(sql, callback);
+      connexion.release();
+    }
+  });
 };

@@ -12,6 +12,10 @@ module.exports = function(app){
     app.get('/photos/ajouter', AdminController.PhotosAjouter);
     app.post('/photos/ajouter', AdminController.PhotosAjouterPost);
 
+    app.get('/photos/supprimer', AdminController.PhotosSupprimer);
+    app.post('/photos/supprimer',AdminController.PhotosSupprimerPost);
+    app.post('/photos/supprimerDonnees', AdminController.PhotosSupprimerPostDonnees);
+
     app.get('/vips', AdminController.Vips);
 
     app.get('/vips/ajouter', AdminController.VipsAjouter);

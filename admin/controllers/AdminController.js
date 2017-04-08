@@ -424,3 +424,100 @@ module.exports.VipsModifierPostDonnees = function(request,response){
         response.render('VipsModifier', response);
     });
 };
+
+
+
+module.exports.PhotosSupprimer = function(request,response){
+    if(!request.session.connection){
+      response.title = 'Connexion';
+      response.render('Connexion', response);
+      return;
+    }
+    async.parallel([
+        function(callback){
+            model.getVips(function(err,result){
+                if(err){
+                    console.log(err);
+                    return;
+                }
+                callback(null,result);
+            });
+        }
+    ],function(err, result){
+        response.vips = result[0];
+        response.title = 'Supprimer une photo';
+        response.render('PhotosSupprimer', response);
+    });
+};
+
+module.exports.PhotosSupprimerPost = function (request,response) {
+  if(!request.session.connection){
+    response.title = 'Connexion';
+    response.render('Connexion', response);
+    return;
+  }
+  var idVip = request.body.vip;
+  request.session.vip = idVip;
+  console.log(idVip)
+  async.parallel([
+      function(callback){
+          model.getPhotoSujet(idVip, function(err,result){
+            if(err){
+              console.log(err);
+              return;
+            }
+            callback(null, result);
+          });
+      },
+      function(callback){
+          model.getVip(idVip, function(err, result){
+              if(err){
+                  console.log(err);
+                  return;
+              }
+              callback(null,result);
+          });
+      }
+  ], function(err,result){
+      response.photo = result[0];
+      response.vip = result[1];
+      response.title = 'Supprimer une photo';
+      response.render('PhotosSupprimerPost', response);
+  });
+};
+
+module.exports.PhotosSupprimerPostDonnees = function (request,response) {
+  if(!request.session.connection){
+    response.title = 'Connexion';
+    response.render('Connexion', response);
+    return;
+  }
+  var idVip = request.session.vip;
+  console.log(idVip)
+  var idPhoto = request.body.photo;
+  console.log(idPhoto);
+  async.parallel([
+      function(callback){
+        model.supPhoto(idVip, idPhoto, function(err, result){
+            if(err){
+                console.log(err);
+                return;
+            }
+            callback(null,result);
+        });
+      },
+      function(callback){
+        model.getVip(idVip, function(err, result){
+            if(err){
+                console.log(err);
+                return;
+            }
+            callback(null,result);
+        });
+      }
+  ], function(err,result){
+      response.result = result[0];
+      response.title = 'Supprimer une photo';
+      response.render('PhotosSupprimer', response);
+  });
+};
