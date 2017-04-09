@@ -58,7 +58,6 @@ module.exports.getPhotoSujet = function (idVip, callback) {
 module.exports.ajouterPhoto = function(data,callback){
         db.getConnection(function(err,connexion){
             if(!err){
-                console.log(data);
                 var sql = "INSERT INTO photo SET ?";
                 connexion.query(sql, data, callback);
                 connexion.release();
@@ -117,6 +116,16 @@ module.exports.suppVipTable = function(idVip, table, callback) {
             connexion.release();
         }
     });
+}
+
+module.exports.foreignKeyChecks = function(check, callback){
+    db.getConnection(function(err, connexion) {
+        if(!err){
+            var sql = "SET foreign_key_checks ="+check+";"
+            connexion.query(sql, callback);
+            connexion.release();
+        }
+    })
 }
 
 module.exports.suppLiaisonVip = function(idVip, callback){

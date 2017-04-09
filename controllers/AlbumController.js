@@ -80,21 +80,16 @@ module.exports.ListerAlbum = function(request, response){
     ],function(err,result) {
         var tab = result[3];
         var tabPhoto = [];
-        console.log('Photo num',numPhoto);
         for(var i = 0; i < tab.length; i++){
-            console.log(parseInt(numPhoto)+1,tab[i]['photo_numero']);
             if(parseInt(numPhoto)+1 == tab[i]['photo_numero']){
                 response.nextPhoto = parseInt(numPhoto)+1;
-                console.log("nxt",response.nextPhoto);
             }
             if(parseInt(numPhoto)-1 == tab[i]['photo_numero']){
                 response.prevPhoto = parseInt(numPhoto)-1;
-                console.log("prev",response.prevPhoto);
             }
         }
           response.vips = result[2];
           response.photo = result[0];
-          console.log(result[0]);
           response.prevPage = parseInt(page)-1;
           response.page = parseInt(page);
           response.nextPage = parseInt(page)+1;

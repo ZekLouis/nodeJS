@@ -117,7 +117,6 @@ module.exports.detailsVip = function(request, response){
       response.chanteur = result[7]
       response.couturier = result[8]
       response.realisateur = result[9]
-      console.log(result);
       response.render('detailsVip', response)
   }
   );

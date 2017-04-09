@@ -17,7 +17,6 @@ module.exports.Article = function(request, response){
         }
     ],function(err,result) {
         response.vips = result[0]
-        console.log(result)
         response.render('Article', response);
     });
 };
