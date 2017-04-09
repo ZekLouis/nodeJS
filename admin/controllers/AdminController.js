@@ -3,7 +3,7 @@ var model = require("../models/admin.js");
 var async = require("async");
 const crypto = require('crypto');
 const formidable = require('formidable');
-
+const fs = require('fs');
 module.exports.Connexion = function(request, response){
     response.title = 'Connexion';
     response.render('Connexion', response);
@@ -433,7 +433,7 @@ module.exports.PhotosSupprimer = function(request,response){
     }
     async.parallel([
         function(callback){
-            model.getVips(function(err,result){
+            model.getVipPlsPhotos(function(err,result){
                 if(err){
                     console.log(err);
                     return;
@@ -505,16 +505,18 @@ module.exports.PhotosSupprimerPostDonnees = function (request,response) {
         });
       },
       function(callback){
-        model.getVip(idVip, function(err, result){
-            if(err){
-                console.log(err);
-                return;
-            }
-            callback(null,result);
-        });
+          model.getVipPlsPhotos(function(err,result){
+              if(err){
+                  console.log(err);
+                  return;
+              }
+              callback(null,result);
+          });
       }
   ], function(err,result){
+      fs.unlink('public/images/vip/'+idPhoto);
       response.result = result[0];
+      response.vips = result[1]
       response.title = 'Supprimer une photo';
       response.render('PhotosSupprimer', response);
   });

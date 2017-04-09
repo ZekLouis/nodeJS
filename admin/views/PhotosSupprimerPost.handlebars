@@ -1,6 +1,7 @@
 {{> menuPhotos}}
 
 
+{{#if photo}}
 <fieldset class="formSupPhoto">
     {{#each vip}}
         <legend><h2>Supprimer une photo de {{this.vip_nom}} {{this.vip_prenom}}</h2></legend>
@@ -8,10 +9,13 @@
           <label for="photo">Sélectionnez la photo à supprimer</label>
           <select name="photo">
               {{#each ../photo}}
-                  <option value="{{this.photo_numero}}">{{this.photo_sujet}}</option>
+                  <option value="{{this.photo_adresse}}">{{this.photo_sujet}}</option>
               {{/each}}
           </select>
           <p><input type="reset" value="Annuler"><input type="submit" value="Supprimer"></p>
         </form>
     {{/each}}
 </fieldset>
+{{else}}
+  <p class="error"> Aucune photo à supprimer </p>
+{{/if}}

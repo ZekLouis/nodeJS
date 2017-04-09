@@ -3,7 +3,7 @@
 
   {{#if vips}}
     <form class="" action="/photos/supprimer" method="post">
-      <label for="vip">Selectionnez la Photo à supprimer</label>
+      <label for="vip">Selectionnez l'artiste</label>
       <select name="vip">
         {{#each vips}}
           <option value="{{this.vip_numero}}">{{this.vip_nom}} {{this.vip_prenom}}</option>
@@ -13,5 +13,5 @@
       <input type="submit" value="Supprimer">
     </form>
   {{else}}
-
+    <p class="error"> Aucun VIP dans la base </p>
   {{/if}}
