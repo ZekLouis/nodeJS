@@ -109,6 +109,16 @@ module.exports.suppVip = function(idVip,callback) {
     });
 };
 
+module.exports.suppVipTable = function(idVip, table, callback) {
+    db.getConnection(function(err, connexion) {
+        if(!err){
+            var sql = "DELETE FROM "+table+" where vip_numero="+idVip+";";
+            connexion.query(sql, callback);
+            connexion.release();
+        }
+    });
+}
+
 module.exports.suppLiaisonVip = function(idVip, callback){
     db.getConnection(function(err, connexion){
       if (!err){

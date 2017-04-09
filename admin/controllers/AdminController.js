@@ -165,32 +165,30 @@ module.exports.VipsSupprimerPost = function(request, response){
       return;
     }
     var idVip = request.body.vip;
-    async.parallel([
-        function(callback){
-            model.suppVipPhoto(idVip, function(err, result){
-              if(err){
-                console.log(err);
-                return;
-              }
-              model.suppVip(idVip, function(err,result){
-                if(err){
-                    console.log(err);
-                    return;
-                }
-                callback(null, result);
-              })
+        requetes = []
+        tables = ['comporte','joue','film','acteur','photo','realisateur','composer','chanteur','apouragence','mannequin','defiledans','defile','couturier','apoursujet','liaison','mariage','vip'];
+        for(var table in tables){
+            console.log(tables[table]);
+            requetes.push(function(){
+                model.suppVipTable(idVip, tables[table], function(err,result){
+                    if(err){
+                        console.log(err);
+                        return;
+                    }
+                })
             })
-
         }
-    ],function(err, result){
-        model.getVips(function(err,result){
-            console.log(result);
-            response.vips = result;
-            response.title = 'Supprimer un VIP';
-            response.render('VipsSupprimer', response);
-        });
 
-    });
+        requetes.push(function(){
+            model.getVips(function(err,result){
+                console.log(result);
+                response.vips = result;
+                response.title = 'Supprimer un VIP';
+                response.render('VipsSupprimer', response);
+            });
+        })
+
+        async.series(requetes);
 };
 
 module.exports.PhotosAjouterPost = function(request, response){
